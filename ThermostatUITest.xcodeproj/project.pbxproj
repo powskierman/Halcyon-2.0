@@ -11,6 +11,12 @@
 		D07B44E62B706FEE008C7594 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B44E52B706FEE008C7594 /* ContentView.swift */; };
 		D07B44E82B706FF0008C7594 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D07B44E72B706FF0008C7594 /* Assets.xcassets */; };
 		D07B44EB2B706FF0008C7594 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D07B44EA2B706FF0008C7594 /* Preview Assets.xcassets */; };
+		D07B44FA2B7071BA008C7594 /* ThermometerSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B44F32B7071BA008C7594 /* ThermometerSummaryView.swift */; };
+		D07B44FB2B7071BA008C7594 /* ThermometerDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B44F52B7071BA008C7594 /* ThermometerDialView.swift */; };
+		D07B44FC2B7071BA008C7594 /* ThermometerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B44F62B7071BA008C7594 /* ThermometerView.swift */; };
+		D07B44FD2B7071BA008C7594 /* ThermometerScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B44F72B7071BA008C7594 /* ThermometerScaleView.swift */; };
+		D07B44FE2B7071BA008C7594 /* ThermometerPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B44F92B7071BA008C7594 /* ThermometerPlaceholderView.swift */; };
+		D07B45002B707219008C7594 /* ClimateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B44FF2B707219008C7594 /* ClimateCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +25,12 @@
 		D07B44E52B706FEE008C7594 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D07B44E72B706FF0008C7594 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D07B44EA2B706FF0008C7594 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D07B44F32B7071BA008C7594 /* ThermometerSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThermometerSummaryView.swift; sourceTree = "<group>"; };
+		D07B44F52B7071BA008C7594 /* ThermometerDialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThermometerDialView.swift; sourceTree = "<group>"; };
+		D07B44F62B7071BA008C7594 /* ThermometerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThermometerView.swift; sourceTree = "<group>"; };
+		D07B44F72B7071BA008C7594 /* ThermometerScaleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThermometerScaleView.swift; sourceTree = "<group>"; };
+		D07B44F92B7071BA008C7594 /* ThermometerPlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThermometerPlaceholderView.swift; sourceTree = "<group>"; };
+		D07B44FF2B707219008C7594 /* ClimateCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClimateCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +47,7 @@
 		D07B44D72B706FEE008C7594 = {
 			isa = PBXGroup;
 			children = (
+				D07B44F12B7071BA008C7594 /* Thermometer */,
 				D07B44E22B706FEE008C7594 /* ThermostatUITest Watch App */,
 				D07B44E12B706FEE008C7594 /* Products */,
 			);
@@ -53,6 +66,7 @@
 			children = (
 				D07B44E32B706FEE008C7594 /* ThermostatUITestApp.swift */,
 				D07B44E52B706FEE008C7594 /* ContentView.swift */,
+				D07B44FF2B707219008C7594 /* ClimateCard.swift */,
 				D07B44E72B706FF0008C7594 /* Assets.xcassets */,
 				D07B44E92B706FF0008C7594 /* Preview Content */,
 			);
@@ -65,6 +79,43 @@
 				D07B44EA2B706FF0008C7594 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D07B44F12B7071BA008C7594 /* Thermometer */ = {
+			isa = PBXGroup;
+			children = (
+				D07B44F22B7071BA008C7594 /* Dial Summary */,
+				D07B44F42B7071BA008C7594 /* Dial */,
+				D07B44F62B7071BA008C7594 /* ThermometerView.swift */,
+				D07B44F72B7071BA008C7594 /* ThermometerScaleView.swift */,
+				D07B44F82B7071BA008C7594 /* Dial Background */,
+			);
+			name = Thermometer;
+			path = ThermostatUITest/Thermometer;
+			sourceTree = "<group>";
+		};
+		D07B44F22B7071BA008C7594 /* Dial Summary */ = {
+			isa = PBXGroup;
+			children = (
+				D07B44F32B7071BA008C7594 /* ThermometerSummaryView.swift */,
+			);
+			path = "Dial Summary";
+			sourceTree = "<group>";
+		};
+		D07B44F42B7071BA008C7594 /* Dial */ = {
+			isa = PBXGroup;
+			children = (
+				D07B44F52B7071BA008C7594 /* ThermometerDialView.swift */,
+			);
+			path = Dial;
+			sourceTree = "<group>";
+		};
+		D07B44F82B7071BA008C7594 /* Dial Background */ = {
+			isa = PBXGroup;
+			children = (
+				D07B44F92B7071BA008C7594 /* ThermometerPlaceholderView.swift */,
+			);
+			path = "Dial Background";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +188,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D07B44FD2B7071BA008C7594 /* ThermometerScaleView.swift in Sources */,
 				D07B44E62B706FEE008C7594 /* ContentView.swift in Sources */,
+				D07B44FC2B7071BA008C7594 /* ThermometerView.swift in Sources */,
+				D07B44FB2B7071BA008C7594 /* ThermometerDialView.swift in Sources */,
+				D07B44FE2B7071BA008C7594 /* ThermometerPlaceholderView.swift in Sources */,
+				D07B45002B707219008C7594 /* ClimateCard.swift in Sources */,
+				D07B44FA2B7071BA008C7594 /* ThermometerSummaryView.swift in Sources */,
 				D07B44E42B706FEE008C7594 /* ThermostatUITestApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

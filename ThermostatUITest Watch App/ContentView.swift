@@ -1,24 +1,60 @@
 //
 //  ContentView.swift
-//  ThermostatUITest Watch App
+//  SmartHomeThermostat
 //
-//  Created by Michel Lapointe on 2024-02-04.
+//  Created by Ali Mert Özhayta on 1.05.2022.
 //
 
 import SwiftUI
 
 struct ContentView: View {
+    
+    init() {
+//        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
+    }
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            ZStack {
+                Color("Background")
+                    .ignoresSafeArea()
+                
+                ScrollView {
+                    VStack(spacing: 0) {
+                        // MARK: Thermometer
+                        ThermometerView()
+                            .padding(.top, 30)
+                            .padding(.bottom, 60)
+                        // MARK: Smart Systems
+                        
+                        HStack(spacing: 20) {
+                            // MARK: Humidity Card
+                            ClimateCard(
+                                iconName: "humidity.fill",
+                                index: "Inside Humidity",
+                                measure: "%49"
+                            )
+                            
+                            // MARK: Temperature Card
+                            ClimateCard(
+                                iconName: "thermometer",
+                                index: "Outside Temp.",
+                                measure: "-10°"
+                            )
+                        }
+                    }
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Thermostat")
+            
         }
-        .padding()
+        .navigationViewStyle(.stack)
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
