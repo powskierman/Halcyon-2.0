@@ -2,8 +2,6 @@
 //  ThermometerPlaceholderView.swift
 //  SmartHomeThermostat
 //
-//  Created by Ali Mert Özhayta on 1.05.2022.
-//
 
 import SwiftUI
 
