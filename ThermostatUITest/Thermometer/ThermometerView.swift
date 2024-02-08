@@ -8,37 +8,25 @@ enum Status: String {
 
 struct ThermometerView: View {
     var screenSize: CGSize
-    
-    // Base dimensions for scaling calculations
-    private let baseWidth41mm: CGFloat = 162 // Base width for scaling calculation
-    private let baseRingSize: CGFloat = 200
-    private let baseOuterDialSize: CGFloat = 180
+    private let baseRingSize: CGFloat = 180
+    private let baseOuterDialSize: CGFloat = 170
     private let minTemperature: CGFloat = 10
     private let maxTemperature: CGFloat = 30
 
     @State private var currentTemperature: CGFloat = 0
     @State private var degrees: CGFloat = 36
     @State private var showStatus = false
-
-    // Dynamic scaling factors
-    private var scalingFactor: CGFloat {
-        (screenSize.width / baseWidth41mm) * 0.75
-    }
-    // Adjusted scaling factor for ThermometerScaleView to scale it down
-     private var adjustedScaleFactorForScaleView: CGFloat {
-         scalingFactor * 0.95 // Example: scale down by 10%
-     }
+    @State private var crownRotationValue: Double = 0 // Track digital crown rotation
+    
     private var ringSize: CGFloat {
-        baseRingSize * scalingFactor
+        baseRingSize
     }
     private var outerDialSize: CGFloat {
-        baseOuterDialSize * scalingFactor
+        baseOuterDialSize
     }
-
     var targetTemperature: CGFloat {
         return min(max(degrees / 360 * 40, minTemperature), maxTemperature)
     }
-
     var ringValue: CGFloat {
         currentTemperature / 40
     }
@@ -57,13 +45,9 @@ struct ThermometerView: View {
     
     var body: some View {
         ZStack {
-            // Integrate ThermometerScaleView with the appropriate scaling factor
             ThermometerScaleView()
-
-            
             // Temperature Ring
             Circle()
-                .inset(by: 5 * scalingFactor)
                 .trim(from: 0.25, to: min(ringValue, 0.75)) //Adjust beginning and end values of drag ring
                 .stroke(
                     LinearGradient(
@@ -71,7 +55,7 @@ struct ThermometerView: View {
                         startPoint: .top,
                         endPoint: .bottom
                     ),
-                    style: StrokeStyle(lineWidth: 10 * scalingFactor, lineCap: .round, lineJoin: .round)
+                    style: StrokeStyle(lineWidth: 20, lineCap: .round, lineJoin: .round)
                 )
                 .frame(width: ringSize, height: ringSize)
                 .rotationEffect(.degrees(90))
@@ -80,6 +64,8 @@ struct ThermometerView: View {
             // Thermometer Dial
             // Assuming ThermometerDialView is adjusted for scaling
             ThermometerDialView(outerDialSize: outerDialSize, degrees: degrees)
+                .focusable()
+                .digitalCrownRotation($currentTemperature, from: 10, through: 30, by: 1, sensitivity: .low)
                 .gesture(
                     DragGesture()
                         .onChanged { value in
@@ -91,7 +77,7 @@ struct ThermometerView: View {
                             
                             let angle = calculateAngle(centerPoint: centerPoint, endPoint: endPoint)
                             
-                            if angle < 36 || angle > 270 { return }
+                            if angle < 90 || angle > 270 { return }  // Minimum and maximum angle of temperature ring
                          
                             degrees = angle - angle.remainder(dividingBy: 9)
                         }
@@ -108,6 +94,7 @@ struct ThermometerView: View {
         .onAppear {
             currentTemperature = 22 // Example initial value
             degrees = currentTemperature / 40 * 360
+            print("Degrees: \(degrees)")
         }
         .onReceive(timer) { _ in
             switch status {

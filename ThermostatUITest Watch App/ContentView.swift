@@ -15,7 +15,7 @@ struct ContentView: View {
                     Color("Background").ignoresSafeArea()
                     VStack(spacing: 0) {
                         ThermometerView(screenSize: geometry.size)
-                            .frame(width: geometry.size.width * 0.9, height: geometry.size.width * 0.9)
+                            .frame(width: geometry.size.width, height: geometry.size.width)
                     }
                 }
             }

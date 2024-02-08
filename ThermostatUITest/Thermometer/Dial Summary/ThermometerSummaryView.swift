@@ -26,7 +26,7 @@ struct ThermometerSummaryView: View {
                 .font(.system(size: 54))
                 .foregroundColor(.white)
             
-            // MARK: Eco Leaf
+            // MARK: Thermometer
             Image(systemName: "thermometer.medium")
                 .font(.title2.bold())
                 .foregroundColor(.teal)

@@ -6,10 +6,10 @@ struct ThermometerDialView: View {
 
     // Calculating innerDialSize and setpointSize based on outerDialSize to maintain proportions
     private var innerDialSize: CGFloat {
-        outerDialSize * 0.84 // Adjust the multiplier based on your design preference
+        outerDialSize * 0.80 // Adjust the multiplier based on your design preference
     }
     private var setpointSize: CGFloat {
-        outerDialSize * 0.16 // Adjust the multiplier based on your design preference
+        outerDialSize * 0.2 // Adjust the multiplier based on your design preference
     }
 
     var body: some View {
@@ -57,7 +57,7 @@ struct ThermometerDialView: View {
                 .frame(width: setpointSize, height: setpointSize)
                 .frame(width: innerDialSize, height: innerDialSize, alignment: .top)
                 .rotationEffect(.degrees(degrees + 180))
-                .animation(.easeInOut(duration: 1), value: degrees)
+                .animation(.easeInOut(duration: 0.5), value: degrees)
         }
     }
 }
