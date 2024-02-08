@@ -13,7 +13,7 @@ struct ThermometerView: View {
     private let baseWidth41mm: CGFloat = 162 // Base width for scaling calculation
     private let baseRingSize: CGFloat = 200
     private let baseOuterDialSize: CGFloat = 180
-    private let minTemperature: CGFloat = 4
+    private let minTemperature: CGFloat = 10
     private let maxTemperature: CGFloat = 30
 
     @State private var currentTemperature: CGFloat = 0
@@ -58,13 +58,13 @@ struct ThermometerView: View {
     var body: some View {
         ZStack {
             // Integrate ThermometerScaleView with the appropriate scaling factor
-            ThermometerScaleView(scaleFactor: adjustedScaleFactorForScaleView)
+            ThermometerScaleView()
 
             
             // Temperature Ring
             Circle()
                 .inset(by: 5 * scalingFactor)
-                .trim(from: 0.1, to: min(ringValue, 0.75))
+                .trim(from: 0.25, to: min(ringValue, 0.75)) //Adjust beginning and end values of drag ring
                 .stroke(
                     LinearGradient(
                         gradient: Gradient(colors: [Color("Temperature Ring 1"), Color("Temperature Ring 2")]),
