@@ -31,18 +31,6 @@ struct ThermometerView: View {
         currentTemperature / 40
     }
     
-    var status: Status {
-        if currentTemperature < targetTemperature {
-            return .heating
-        } else if currentTemperature > targetTemperature {
-            return .cooling
-        } else {
-            return .reaching
-        }
-    }
-    
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
     var body: some View {
         ZStack {
             ThermometerScaleView()
@@ -67,27 +55,30 @@ struct ThermometerView: View {
                 .focusable()
                 .digitalCrownRotation($currentTemperature, from: 10, through: 30, by: 1, sensitivity: .low)
                 .gesture(
-                    DragGesture()
-                        .onChanged { value in
-                            let x = min(max(value.location.x, 0), outerDialSize)
-                            let y = min(max(value.location.y, 0), outerDialSize)
-                            
-                            let endPoint = CGPoint(x: x, y: y)
-                            let centerPoint = CGPoint(x: outerDialSize / 2, y: outerDialSize / 2)
-                            
-                            let angle = calculateAngle(centerPoint: centerPoint, endPoint: endPoint)
-                            
-                            if angle < 90 || angle > 270 { return }  // Minimum and maximum angle of temperature ring
-                         
-                            degrees = angle - angle.remainder(dividingBy: 9)
-                        }
-                )
+                      DragGesture()
+                          .onChanged { value in
+                              let x = min(max(value.location.x, 0), outerDialSize)
+                              let y = min(max(value.location.y, 0), outerDialSize)
+                              
+                              let endPoint = CGPoint(x: x, y: y)
+                              let centerPoint = CGPoint(x: outerDialSize / 2, y: outerDialSize / 2)
+                              
+                              let angle = calculateAngle(centerPoint: centerPoint, endPoint: endPoint)
+                              
+                              if angle < 90 || angle > 270 { return }  // Minimum and maximum angle of temperature ring
+                              
+                              degrees = angle - angle.remainder(dividingBy: 9)
+                              // Update currentTemperature based on the new degrees
+                              let newTemperature = min(max(degrees / 360 * 40, minTemperature), maxTemperature)
+                              currentTemperature = newTemperature
+                          }
+                  )
             
             // Thermometer Summary
             // Assuming ThermometerSummaryView adjusts its layout based on scalingFactor
             ThermometerSummaryView(
-                status: status,
-                showStatus: showStatus,
+//                status: status,
+//                showStatus: showStatus,
                 temperature: currentTemperature
             )
         }
@@ -96,20 +87,7 @@ struct ThermometerView: View {
             degrees = currentTemperature / 40 * 360
             print("Degrees: \(degrees)")
         }
-        .onReceive(timer) { _ in
-            switch status {
-            case .heating:
-                showStatus = true
-                currentTemperature += 1
-            case .cooling:
-                showStatus = true
-                currentTemperature -= 1
-            case .reaching:
-                showStatus = false
-            }
-        }
-        .onDisappear {
-            timer.upstream.connect().cancel()
+        .onChange(of: currentTemperature) { degrees = currentTemperature / 40 * 360
         }
     }
 
@@ -122,8 +100,10 @@ struct ThermometerView: View {
 
 struct ThermometerView_Previews: PreviewProvider {
     static var previews: some View {
-        ThermometerView(screenSize: CGSize(width: 184, height: 224)) // Simulate 45mm watch size
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color("Background"))
+        GeometryReader { geometry in
+            ThermometerView(screenSize: geometry.size)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color("Background"))
+        }
     }
 }

@@ -33,11 +33,11 @@ struct ThermometerScaleView: View {
     }
 
     private func temperatureMarking(text: String, at angle: Double, geometry: GeometryProxy) -> some View {
-        let scaleDiameter = min(geometry.size.width, geometry.size.height) * 0.95
+        let scaleDiameter = min(geometry.size.width, geometry.size.height) * 1.0
         let radius = scaleDiameter / 2
         let adjustedAngle = angle.truncatingRemainder(dividingBy: 360)
         let angleRadians = adjustedAngle * Double.pi / 180
-        let xPosition = radius + cos(angleRadians) * radius * 1.0
+        let xPosition = radius + cos(angleRadians) * radius * 0.9
         let yPosition = radius + sin(angleRadians) * radius * 1.0
 
         return Text(text)
