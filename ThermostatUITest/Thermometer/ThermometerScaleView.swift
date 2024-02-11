@@ -20,7 +20,8 @@ struct ThermometerScaleView: View {
     }
 
     private func tickMark(forIndex index: Int, totalTicks: Int, geometry: GeometryProxy) -> some View {
-        let scaleDiameter = min(geometry.size.width * 0.9, geometry.size.height)
+        let outerMargin: CGFloat = 10 // Margin outside the ThermometerDialView
+        let scaleDiameter = min(geometry.size.width, geometry.size.height) + outerMargin
         let radius = scaleDiameter / 2
         let angle = (Double(index) / Double(totalTicks)) * 360.0 + 180
         let tickRotation = Angle(degrees: angle)
@@ -33,18 +34,19 @@ struct ThermometerScaleView: View {
     }
 
     private func temperatureMarking(text: String, at angle: Double, geometry: GeometryProxy) -> some View {
-        let scaleDiameter = min(geometry.size.width, geometry.size.height) * 1.0
-        let radius = scaleDiameter / 2
+        let outerMargin: CGFloat = 10 // Adjust this margin to move the digits further out if needed
+        let scaleDiameter = min(geometry.size.width, geometry.size.height) // Diameter of the scale
+        let radius = (scaleDiameter / 2) + outerMargin // Increase radius for text positioning
         let adjustedAngle = angle.truncatingRemainder(dividingBy: 360)
         let angleRadians = adjustedAngle * Double.pi / 180
-        let xPosition = radius + cos(angleRadians) * radius * 0.9
-        let yPosition = radius + sin(angleRadians) * radius * 1.0
+        // Calculate x and y positions based on the adjusted radius
+        let xPosition = radius * cos(angleRadians) + geometry.size.width / 2
+        let yPosition = radius * sin(angleRadians) + geometry.size.height / 2
 
         return Text(text)
-            .font(.system(size: scaleDiameter * 0.05))
+            .font(.system(size: scaleDiameter * 0.05)) // Adjust font size based on your needs
             .foregroundColor(.white)
             .position(x: xPosition, y: yPosition)
-
     }
 }
 

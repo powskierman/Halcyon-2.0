@@ -19,7 +19,7 @@ struct ContentView: View {
                     VStack(spacing: 0) {
                         TabView(selection: $selectedRoom) {
                             ForEach(Room.allCases, id: \.self) { room in
-                                ThermometerView(room: room, screenSize: geometry.size)
+                                ThermometerView(room: room)
                                     .tag(room) // Ensure each view is uniquely tagged
                             }
                         }
