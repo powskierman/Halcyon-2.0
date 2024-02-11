@@ -1,12 +1,13 @@
 import SwiftUI
 
-enum Status: String {
-    case heating = "HEATING"
-    case cooling = "COOLING"
-    case reaching = "REACHING"
+enum Room: String, CaseIterable {
+    case Chambre = "Chambre"
+    case TVRoom = "TV Room"
+    case Cuisine = "Cuisine"
 }
 
 struct ThermometerView: View {
+    var room: Room
     var screenSize: CGSize
     private let baseRingSize: CGFloat = 180
     private let baseOuterDialSize: CGFloat = 170
@@ -17,6 +18,7 @@ struct ThermometerView: View {
     @State private var degrees: CGFloat = 36
     @State private var showStatus = false
     @State private var crownRotationValue: Double = 0 // Track digital crown rotation
+    @State private var currentRoom: Room = .Chambre
     
     private var ringSize: CGFloat {
         baseRingSize
@@ -101,7 +103,7 @@ struct ThermometerView: View {
 struct ThermometerView_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { geometry in
-            ThermometerView(screenSize: geometry.size)
+            ThermometerView(room: .Chambre, screenSize: geometry.size)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color("Background"))
         }
